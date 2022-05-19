@@ -27,7 +27,4 @@ public class CommonProxy {
     public void postInit() {
     }
 
-    private static void registerSaplingReplacement(final Block saplingBlock, final String speciesName) {
-    }
-
 }
