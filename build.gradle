@@ -1,11 +1,20 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
-plugins {
-    id 'eclipse'
-    id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '5.1.+'
-    id 'wtf.gofancy.fancygradle' version '1.1.+'
+buildscript {
+    repositories {
+        maven {
+            name 'MinecraftForge'
+            url 'https://files.minecraftforge.net/maven'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
 }
+
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+apply plugin: 'net.minecraftforge.gradle.forge'
 
 group = project.mod_maven_group
 archivesBaseName = project.mod_jar_name
@@ -15,31 +24,9 @@ sourceCompatibility = compileJava.sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = compileJava.targetCompatibility = JavaVersion.VERSION_1_8
 
 minecraft {
-    mappings channel: project.mappings_channel, version: project.mappings_version
-
-    runs {
-        client {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-        }
-
-        server {
-            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-            property 'forge.logging.console.level', 'debug'
-        }
-    }
-}
-
-fancyGradle {
-    patches {
-        resources
-        coremods
-        codeChickenLib
-        asm
-        mergetool
-    }
+    version = "${project.minecraft_version}-${project.forge_version}"
+    mappings = "${project.mappings_channel}_${project.mappings_version}"
+    runDir = "run"
 }
 
 repositories {
@@ -58,14 +45,12 @@ repositories {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${project.minecraft_version}-${project.forge_version}"
+    compile "codechicken:CodeChickenLib:${project.deps_ccl_version}:universal"
 
-    runtimeOnly "codechicken:CodeChickenLib:${project.deps_ccl_version}:universal"
+    deobfCompile "curse.maven:gregtech-${project.deps_gregtechceu_version}-${project.deps_gregtechceu_curse_ref}"
+    deobfCompile "net.sengir.forestry:forestry_${project.deps_forestry_version}"
 
-    implementation fg.deobf("curse.maven:gregtech-${project.deps_gregtechceu_version}-${project.deps_gregtechceu_curse_ref}")
-    implementation fg.deobf("net.sengir.forestry:forestry_${project.deps_forestry_version}")
-
-    runtimeOnly "mezz.jei:jei_${project.deps_jei_version}"
+    compile "mezz.jei:jei_${project.deps_jei_version}"
 }
 
 processResources {
@@ -93,8 +78,13 @@ compileJava {
     source = processSource.outputs
 }
 
-java {
-    withSourcesJar()
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
 }
 
 jar {
