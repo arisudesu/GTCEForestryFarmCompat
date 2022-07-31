@@ -13,15 +13,17 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 @Mod(
         modid = GTCEForestryFarmCompat.MODID,
         name = GTCEForestryFarmCompat.NAME,
-        dependencies = GTCEForestryFarmCompat.DEPENDENCIES
+        dependencies = GTCEForestryFarmCompat.DEPENDENCIES,
+        updateJSON = GTCEForestryFarmCompat.UPDATE_URL
 )
 public class GTCEForestryFarmCompat {
 
-    public static final String MODID = "gtceforestryfarmcompat";
-    public static final String NAME = "GregTechCEu - Forestry tree farm compatibility";
+    public static final String MODID = "@MOD_ID@";
+    public static final String NAME = "@MOD_NAME@";
     public static final String DEPENDENCIES =
             "required-after:" + Constants.MOD_ID + "@[" + Constants.VERSION + ",);" +
                     GTValues.MOD_VERSION_DEP;
+    public static final String UPDATE_URL = "@MOD_UPDATE_URL@";
 
     @Mod.Instance
     public static GTCEForestryFarmCompat instance;

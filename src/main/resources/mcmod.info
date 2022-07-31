@@ -1,14 +1,14 @@
 [
   {
-    "modid": "gtceforestryfarmcompat",
-    "name": "GregTechCEu - Forestry tree farm compatibility",
-    "description": "Allows Forestry tree farm to plant GTCE Rubber trees.",
-    "version": "${version}",
-    "mcversion": "${mcversion}",
-    "url": "",
-    "updateUrl": "",
+    "modid": "${mod_id}",
+    "name": "${mod_name}",
+    "description": "${mod_description}",
+    "version": "${mod_version}",
+    "mcversion": "${minecraft_version}",
+    "url": "${mod_url}",
+    "updateUrl": "${mod_update_url}",
     "authorList": [
-      "Arisu Desu"
+      "${mod_author}"
     ],
     "credits": "",
     "logoFile": "modlogo.png",
