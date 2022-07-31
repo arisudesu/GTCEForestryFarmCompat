@@ -37,7 +37,7 @@ repositories {
         url "https://maven.ic2.player.to" // Forestry
     }
     maven {
-        url 'https://modmaven.dev' // CCL
+        url 'https://chickenbones.net/maven/' // CCL
     }
     maven {
         url 'https://dvs1.progwml6.com/files/maven/' // JEI
