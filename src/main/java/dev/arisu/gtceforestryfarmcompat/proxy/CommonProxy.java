@@ -3,7 +3,6 @@ package dev.arisu.gtceforestryfarmcompat.proxy;
 import forestry.farming.FarmRegistry;
 import forestry.farming.logic.ForestryFarmIdentifier;
 import forestry.farming.logic.farmables.FarmableSapling;
-import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
